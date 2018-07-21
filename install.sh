@@ -34,7 +34,5 @@ cp $CURRENT_PATH/plugin_build/*.jar $PLUGIN_DIR
 echo "Adding new war";
 mv  $CURRENT_PATH/openspecimen.war webapps/$WAR_NAME
 
-#mv webapps/openspecimen.war webapps/$WAR_NAME
-
 echo "Server Up..";
 bin/./startup.sh
