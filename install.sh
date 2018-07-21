@@ -15,21 +15,15 @@ echo "creating backup folders for plugins and war";
 mkdir bkp_$BACKUP_DIR/war bkp_$BACKUP_DIR/plugins
 
 echo "Taking backup of plugin";
-cp $PLUGIN_DIR/*.jar bkp_$BACKUP_DIR/plugins
+mv $PLUGIN_DIR/*.jar bkp_$BACKUP_DIR/plugins
 
 echo "Taking war backup";
 cd $TOMCAT_PATH
 WAR_NAME=$WAR_NAME.war
-cp webapps/$WAR_NAME $CURRENT_PATH/bkp_$BACKUP_DIR/war
+mv webapps/$WAR_NAME $CURRENT_PATH/bkp_$BACKUP_DIR/war
 
 echo "Server Down";
 bin/./shutdown.sh -force
-
-echo "Removing plugins";
-rm $PLUGIN_DIR/*.jar
-
-echo "Removing war"
-rm webapps/$WAR_NAME
 
 echo "adding .properties file into tomcat/conf";
 cp $CURRENT_PATH/$1 conf/
@@ -38,9 +32,9 @@ echo "Adding new plugins";
 cp $CURRENT_PATH/plugin_build/*.jar $PLUGIN_DIR
 
 echo "Adding new war";
-cp  $CURRENT_PATH/openspecimen.war webapps/
+mv  $CURRENT_PATH/openspecimen.war webapps/$WAR_NAME
 
-mv webapps/openspecimen.war webapps/$WAR_NAME
+#mv webapps/openspecimen.war webapps/$WAR_NAME
 
 echo "Server Up..";
 bin/./startup.sh
